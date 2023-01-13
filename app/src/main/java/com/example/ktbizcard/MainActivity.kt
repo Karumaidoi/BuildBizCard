@@ -8,6 +8,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -69,6 +71,31 @@ fun createBizCard() {
     }
 }
 
+@Preview
+@Composable
+fun content() {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .fillMaxHeight()
+        .padding(5.dp)) {
+        Surface(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(), shape = RoundedCornerShape(corner = CornerSize(6.dp)), border = BorderStroke(width = 2.dp, color = Color.LightGray)) {
+            Portfolio(data = listOf("Project 1", "Project 2"))
+        }
+    }
+}
+
+@Composable
+fun Portfolio(data: List<String>) {
+    //Equal to ListView Builder
+    LazyColumn{
+        items(data) {
+            item ->  Text(item)
+        }
+    }
+}
+
 @Composable
 private fun CreateInfo() {
     Column(modifier = Modifier.padding(vertical = 12.dp)) {
@@ -99,7 +126,7 @@ private fun CreateImageProfile() {
 }
 
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     KtBizCardTheme {
