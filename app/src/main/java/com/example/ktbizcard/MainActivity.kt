@@ -15,6 +15,8 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,6 +48,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun createBizCard() {
+    val buttonClickedState = remember {
+        mutableStateOf(false)
+    }
     androidx.compose.material.Surface(modifier = Modifier
         .fillMaxSize()
         .fillMaxHeight()) {
@@ -61,9 +66,14 @@ fun createBizCard() {
                 Divider(modifier = Modifier.padding(4.dp))
                 CreateInfo()
                 Button(onClick = {
-                    print("Something happened")
+                    buttonClickedState.value = !buttonClickedState.value
                 }, modifier = Modifier.padding(vertical = 20.dp)) {
                     Text(text = "Portfolio")
+                }
+                if(buttonClickedState.value) {
+                    content();
+                } else {
+                    Box() {}
                 }
             }
 
@@ -71,7 +81,7 @@ fun createBizCard() {
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun content() {
     Box(modifier = Modifier
@@ -126,7 +136,7 @@ private fun CreateImageProfile() {
 }
 
 
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     KtBizCardTheme {
